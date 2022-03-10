@@ -3,3 +3,4 @@
 /pkg
 package-lock.json
 yarn.lock
+fastly.toml

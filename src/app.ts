@@ -10,6 +10,8 @@ declare global {
 
 export const app = new Hono()
 
+app.get('/', (c) => c.text('Compute@Edge!'))
+
 /*
 if (req.http.User-Agent ~ "MalBot") {
   error 403 "Forbidden";
@@ -34,7 +36,7 @@ app.use(
 )
 app.get('/auth/*', (c) => c.text('You are authorized!'))
 
-/* backend httpbin.org */
+/* backend httpbin.org - status */
 app.get('/status/:status', (c) => {
   const backendResponse = fetch(c.req as Request, {
     backend: 'origin_a',
@@ -42,7 +44,18 @@ app.get('/status/:status', (c) => {
   return backendResponse
 })
 
-app.get('/', (c) => c.text('Compute@Edge!'))
-app.get('/hello/:name', (c) => {
-  return c.text(`Hello ${c.req.param('name')}!!`)
+/* backend httpbin.org - status */
+app.get('/cache/:time', (c) => {
+  const backendResponse = fetch(c.req as Request, {
+    backend: 'origin_a',
+  })
+  return backendResponse
+})
+
+/* backend httpbin.org - json */
+app.get('/json', (c) => {
+  const backendResponse = fetch(c.req as Request, {
+    backend: 'origin_a',
+  })
+  return backendResponse
 })
