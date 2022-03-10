@@ -1,0 +1,29 @@
+{
+    "author": "yusuke@kamawada.com",
+    "dependencies": {
+        "@fastly/js-compute": "^0.2.4",
+        "crypto-js": "^4.1.1",
+        "hono": "^0.5.2"
+    },
+    "devDependencies": {
+        "@esbuild-plugins/node-globals-polyfill": "^0.1.1",
+        "@esbuild-plugins/node-modules-polyfill": "^0.1.4",
+        "@types/crypto-js": "^4.1.1",
+        "esbuild": "^0.14.25"
+    },
+    "homepage": "https://github.com/yusukebe/hono",
+    "license": "MIT",
+    "main": "bin/index.js",
+    "name": "vcl-to-compute",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/yusukebe/hono.git"
+    },
+    "scripts": {
+        "build": "js-compute-runtime --skip-pkg bin/index.js bin/main.wasm",
+        "deploy": "npm run build \u0026\u0026 fastly compute deploy",
+        "dev": "fastly compute serve --watch",
+        "prebuild": "node ./build.js"
+    },
+    "version": "0.0.1"
+}
