@@ -2,6 +2,12 @@ import { Hono } from 'hono'
 import { SHA256 } from 'crypto-js'
 import { basicAuth } from 'hono/basic-auth'
 
+declare global {
+  interface RequestInit {
+    backend: string
+  }
+}
+
 export const app = new Hono()
 
 /*
@@ -28,7 +34,15 @@ app.use(
 )
 app.get('/auth/*', (c) => c.text('You are authorized!'))
 
-app.get('/', (c) => c.text('Hello! Compute@Edge!'))
+/* backend httpbin.org */
+app.get('/status/:status', (c) => {
+  const backendResponse = fetch(c.req as Request, {
+    backend: 'origin_a',
+  })
+  return backendResponse
+})
+
+app.get('/', (c) => c.text('Compute@Edge!'))
 app.get('/hello/:name', (c) => {
   return c.text(`Hello ${c.req.param('name')}!!`)
 })
