@@ -1,5 +1,21 @@
 {
+    "name": "vcl-to-compute",
+    "version": "0.0.1",
+    "main": "bin/index.js",
     "author": "yusuke@kamawada.com",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/yusukebe/hono.git"
+    },
+    "homepage": "https://github.com/yusukebe/hono",
+    "scripts": {
+        "test": "jest --verbose",
+        "build": "js-compute-runtime --skip-pkg bin/index.js bin/main.wasm",
+        "deploy": "npm run build && fastly compute deploy",
+        "dev": "fastly compute serve --watch",
+        "prebuild": "node ./build.js"
+    },
     "dependencies": {
         "@fastly/js-compute": "^0.2.4",
         "crypto-js": "^4.1.1",
@@ -9,21 +25,13 @@
         "@esbuild-plugins/node-globals-polyfill": "^0.1.1",
         "@esbuild-plugins/node-modules-polyfill": "^0.1.4",
         "@types/crypto-js": "^4.1.1",
-        "esbuild": "^0.14.25"
-    },
-    "homepage": "https://github.com/yusukebe/hono",
-    "license": "MIT",
-    "main": "bin/index.js",
-    "name": "vcl-to-compute",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/yusukebe/hono.git"
-    },
-    "scripts": {
-        "build": "js-compute-runtime --skip-pkg bin/index.js bin/main.wasm",
-        "deploy": "npm run build \u0026\u0026 fastly compute deploy",
-        "dev": "fastly compute serve --watch",
-        "prebuild": "node ./build.js"
-    },
-    "version": "0.0.1"
+        "@types/jest": "^27.4.1",
+        "@types/service-worker-mock": "^2.0.1",
+        "esbuild": "^0.14.25",
+        "esbuild-jest": "^0.5.0",
+        "jest": "^27.5.1",
+        "jest-environment-miniflare": "^2.3.0",
+        "jest-node-exports-resolver": "^1.1.5",
+        "service-worker-mock": "^2.0.5"
+    }
 }
